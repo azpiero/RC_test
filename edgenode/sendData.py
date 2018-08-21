@@ -42,15 +42,15 @@ if __name__ == '__main__':
             gyrodata = b.getGyro()
             magdata = b.getMag()
 
-            deg_x += (pgyrox + gyrodata[0]/262.4)*dt/2
-            deg_y += (pgyroy + gyrodata[1]/262.4)*dt/2
-            deg_z += (pgyroz + gyrodata[2]/262.4)*dt/2
+            #deg_x += (pgyrox + gyrodata[0]/262.4)*dt/2
+            #deg_y += (pgyroy + gyrodata[1]/262.4)*dt/2
+            #deg_z += (pgyroz + gyrodata[2]/262.4)*dt/2
 
             #z軸回転（yaw回転）分の移り変わりを加味します
-            deg_x +=deg_y * math.sin(gyrodata[2]/262.4*dt*math.pi/180)
-            deg_y -=deg_x * math.sin(gyrodata[2]/262.4*dt*math.pi/180) 
+            #deg_x +=deg_y * math.sin(gyrodata[2]/262.4*dt*math.pi/180)
+            #deg_y -=deg_x * math.sin(gyrodata[2]/262.4*dt*math.pi/180)
 
-    
+
             result ={
                     "timeStamp" : datetime.now().strftime("%Y/%m/%d %H:%M:%S"),
                     "boatNumber": "1",
@@ -60,15 +60,21 @@ if __name__ == '__main__':
                         },
                     "accelaration": {
                         #+-2g => 1LSBを1024段階で評価
-                        "x": acceldata[0]/1024,
-                        "y": acceldata[1]/1024,
-                        "z": acceldata[2]/1024
+                        #"x": acceldata[0]/1024,
+                        #"y": acceldata[1]/1024,
+                        #"z": acceldata[2]/1024
+                        "x": acceldata[0],
+                        "y": acceldata[1],
+                        "z": acceldata[2]
                         },
                     "angular": {
                         #+-125 =>1LSBを262.4で評価
-                        "x": deg_x*0.9 + 0.1*calibration.degxbyaccel(acceldata[1]/1024,acceldata[2]/1024),
-                        "y": deg_y*0.9 + 0.1*calibration.degybyaccel(acceldata[0]/1024,acceldata[1]/1024,acceldata[2]/1024),
-                        "z": deg_z
+                        #"x": deg_x*0.9 + 0.1*calibration.degxbyaccel(acceldata[1]/1024,acceldata[2]/1024),
+                        #"y": deg_y*0.9 + 0.1*calibration.degybyaccel(acceldata[0]/1024,acceldata[1]/1024,acceldata[2]/1024),
+                        #"z": deg_z
+                        "x": gyrodata[0],
+                        "y": gyrodata[1],
+                        "z": gyrodata[2]
                         },
                     "direction": {
                         "x": magdata[0],
@@ -77,10 +83,9 @@ if __name__ == '__main__':
                         }
                     }
 
-            pgyrox = gyrodata[0]/262.4
-            pgyroy = gyrodata[1]/262.4
-            pgyroz = gyrodata[2]/262.4
+            #pgyrox = gyrodata[0]/262.4
+            #pgyroy = gyrodata[1]/262.4
+            #pgyroz = gyrodata[2]/262.4
 
             client.sendto(str.encode(json.dumps(result)),(host,port))
             time.sleep(dt)
-
