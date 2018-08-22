@@ -52,7 +52,7 @@ if __name__ == '__main__':
 
 
             result ={
-                    "timeStamp" : datetime.now().strftime("%Y/%m/%d %H:%M:%S"),
+                    "timeStamp" : datetime.now().strftime("%Y/%m/%d %H:%M:%S.")+"%03d" % (now.microsecond//1000) ,
                     "boatNumber": "1",
                     "position": {
                         "longitude": gpsdata[0],
