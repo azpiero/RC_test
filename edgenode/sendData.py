@@ -15,16 +15,17 @@ import calibration
 import math
 #import iothub_client
 
+# 第一引数 dt 第二引数 IPAddress
 if __name__ == '__main__':
     gpsthread = threading.Thread(target=GPS.rungps,args=())
     gpsthread.daemon = True
     gpsthread.start()
     b = BMXdata()
-    dt = 0.1
+    dt = float(param[1])
 
     #s = socket.socket()
     client = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    host = "172.20.10.4"
+    host = host = param[2]
     port = 5000
 
     with closing(client):

@@ -6,7 +6,7 @@ import time
 class BMXdata:
     accelAddr=0x19
     gyroAddr=0x69
-    magAddr=0x13
+    magAddr=0x11
 
     def __init__(self):
         
