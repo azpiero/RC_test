@@ -23,7 +23,7 @@
 - 9軸センサの電源を5V -> 3.3V または 3.3V -> 5V にする
 
 ### センサのつなぎ方
-![配線](https://user-images.githubusercontent.com/18510099/44737434-f01ad080-ab2c-11e8-8baf-82fe7d663652.png "配線")
+![配線](https://user-images.githubusercontent.com/18510099/44737522-32dca880-ab2d-11e8-9b2e-835aa9d01113.png "配線")
 
 
 
